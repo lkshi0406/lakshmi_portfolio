@@ -508,20 +508,22 @@ function Skills() {
 function Achievements() {
   return (
     <Section id="achievements" title="Achievements & Activities" subtitle="recognition" alt>
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-f80px,1fr))", gap:28, marginBottom:56, alignItems:"stretch" }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:24, marginBottom:56 }}>
         {ACHIEVEMENTS.map((a, i) => {
           const [ref, inView] = useInView();
           return (
             <div key={i} ref={ref} style={{
-              background:"#161b22", border:`1.5px solid rgba(231,76,60,0.2)`,
-              borderRadius:12, padding:"28px",
+              background:"#ffffff", border:"1px solid #e2e8f0", borderRadius:12, padding:"24px",
               opacity: inView?1:0, transform: inView?"translateY(0)":"translateY(20px)",
               transition:`all 0.6s cubic-bezier(.16,1,.3,1) ${i*0.1}s`,
               display:"flex", flexDirection:"column",
-            }}>
-              <div style={{ fontSize:36, marginBottom:16 }}>{a.icon}</div>
-              <h3 style={{ fontFamily:"'Syne',sans-serif", fontSize:17, fontWeight:700, color:"#f0f0f0", marginBottom:12 }}>{a.title}</h3>
-              <p style={{ color:"#cbd5e0", fontSize:14, lineHeight:1.6 }}>{a.detail}</p>
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor="#2563eb"; e.currentTarget.style.boxShadow="0 4px 12px rgba(37,99,235,0.08)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor="#e2e8f0"; e.currentTarget.style.boxShadow="none"; }}
+            >
+              <div style={{ fontSize:32, marginBottom:12 }}>{a.icon}</div>
+              <h3 style={{ fontFamily:"'Inter', sans-serif", fontSize:15, fontWeight:700, color:"#0f172a", marginBottom:8 }}>{a.title}</h3>
+              <p style={{ color:"#64748b", fontSize:13, lineHeight:1.6, fontFamily:"'Inter', sans-serif" }}>{a.detail}</p>
             </div>
           );
         })}
@@ -529,52 +531,51 @@ function Achievements() {
 
       {/* Leadership */}
       <div style={{
-        background:"#161b22", border:"1.5px solid rgba(231,76,60,0.15)",
-        borderRadius:12, padding:"32px",
+        background:"#ffffff", border:"1px solid #e2e8f0",
+        borderRadius:12, padding:"28px",
       }}>
-        <h3 style={{ fontFamily:"'Syne',sans-serif", fontSize:19, color:"#f0f0f0", marginBottom:24, fontWeight:700 }}>Leadership & Community</h3>
-        <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+        <h3 style={{ fontFamily:"'Inter', sans-serif", fontSize:17, color:"#0f172a", marginBottom:20, fontWeight:700 }}>Leadership & Community</h3>
+        <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
           {[
             "Inclusion Officer at GitHub Community Club (2023–2024)",
             "Expert Team Member & Event Lead (2023–Present)",
             "Contributed to technical event organization and promotion",
             "Led marketing and design for Epoch 2024 and Epoch 2025",
           ].map((item, i) => (
-            <div key={i} style={{ display:"flex", gap:14, alignItems:"flex-start" }}>
+            <div key={i} style={{ display:"flex", gap:12, alignItems:"flex-start" }}>
               <div style={{
-                width:28, height:28, borderRadius:6, background:"rgba(231,76,60,0.15)",
-                border:"1.5px solid rgba(231,76,60,0.4)", display:"flex", alignItems:"center",
-                justifyContent:"center", flexShrink:0, fontSize:14, color:"#e74c3c", fontWeight:700,
+                width:24, height:24, borderRadius:4, background:"#eff6ff",
+                border:"1px solid #bfdbfe", display:"flex", alignItems:"center",
+                justifyContent:"center", flexShrink:0, fontSize:12, color:"#1d4ed8", fontWeight:700,
               }}>✓</div>
-              <span style={{ color:"#cbd5e0", fontSize:15, lineHeight:1.6, paddingTop:2 }}>{item}</span>
+              <span style={{ color:"#475569", fontSize:14, lineHeight:1.6, fontFamily:"'Inter', sans-serif", paddingTop:2 }}>{item}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Coding Profiles */}
-      <div style={{ marginTop:56 }}>
-        <h3 style={{ fontFamily:"'Syne',sans-serif", fontSize:19, color:"#f0f0f0", marginBottom:24, fontWeight:700 }}>Coding Profiles</h3>
-        <div style={{ display:"flex", flexWrap:"wrap", gap:20 }}>
+      <div style={{ marginTop:40 }}>
+        <h3 style={{ fontFamily:"'Inter', sans-serif", fontSize:17, color:"#0f172a", marginBottom:20, fontWeight:700 }}>Coding Profiles</h3>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:16 }}>
           {CODING_PROFILES.map(p => (
             <a key={p.name} href={p.url} target="_blank" rel="noreferrer" style={{
-              display:"flex", alignItems:"center", gap:14,
-              background:"#161b22", border:"1.5px solid rgba(231,76,60,0.15)",
-              borderRadius:10, padding:"16px 24px", textDecoration:"none",
+              display:"flex", alignItems:"center", gap:12,
+              background:p.bg, border:`1px solid ${p.color}`,
+              borderRadius:8, padding:"12px 20px", textDecoration:"none",
               transition:"all 0.3s",
               cursor:"pointer",
             }}
-              onMouseEnter={e => { e.currentTarget.style.border=`1.5px solid #e74c3c`; e.currentTarget.style.transform="translateY(-4px)"; e.currentTarget.style.boxShadow="0 8px 16px rgba(231,76,60,0.15)"; }}
-              onMouseLeave={e => { e.currentTarget.style.border="1.5px solid rgba(231,76,60,0.15)"; e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="none"; }}
+              onMouseEnter={e => { e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 4px 12px rgba(37,99,235,0.08)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="none"; }}
             >
               <div style={{
-                width:40, height:40, borderRadius:8,
-                background:p.bg, border:`1.5px solid ${p.color}40`,
+                width:32, height:32, borderRadius:6,
+                background:"#ffffff", border:`1px solid ${p.color}`,
                 display:"flex", alignItems:"center", justifyContent:"center",
-                fontFamily:"'Times New Roman', serif", fontSize:12, fontWeight:700, color:p.color,
+                fontFamily:"'Inter', sans-serif", fontSize:11, fontWeight:700, color:p.color,
               }}>{p.icon}</div>
-              <span style={{ fontFamily:"'Times New Roman', serif", fontSize:14, color:"#f0f0f0", fontWeight:600 }}>{p.name}</span>
-              <span style={{ fontSize:13, color:"#e74c3c", marginLeft:4 }}>↗</span>
+              <span style={{ fontFamily:"'Inter', sans-serif", fontSize:13, color:p.color, fontWeight:600 }}>{p.name}</span>
             </a>
           ))}
         </div>
@@ -595,34 +596,34 @@ function Experience() {
         transition:"all 0.7s cubic-bezier(.16,1,.3,1)",
       }}>
         {/* Timeline line */}
-        <div style={{ position:"absolute", left:0, top:8, bottom:0, width:2, background:"linear-gradient(180deg,#e74c3c,#e74c3c40)" }} />
+        <div style={{ position:"absolute", left:0, top:24, bottom:0, width:2, background:"linear-gradient(180deg,#2563eb,#2563eb40)" }} />
 
         <div style={{
-          background:"#161b22", border:"1.5px solid rgba(231,76,60,0.2)",
-          borderRadius:12, padding:"32px", position:"relative",
+          background:"#ffffff", border:"1px solid #e2e8f0",
+          borderRadius:12, padding:"28px", position:"relative",
         }}>
           {/* Dot */}
           <div style={{
-            position:"absolute", left:-45, top:32, width:20, height:20, borderRadius:"50%",
-            background:"linear-gradient(135deg,#e74c3c,#f39c12)",
-            border:"3px solid #0f172a",
+            position:"absolute", left:-25, top:28, width:18, height:18, borderRadius:"50%",
+            background:"#2563eb",
+            border:"4px solid #ffffff", boxShadow:"0 0 0 1px #e2e8f0",
           }} />
 
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:12, marginBottom:20 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:16, marginBottom:20 }}>
             <div>
-              <h3 style={{ fontFamily:"'Syne',sans-serif", fontSize:19, fontWeight:700, color:"#f0f0f0" }}>
+              <h3 style={{ fontFamily:"'Inter', sans-serif", fontSize:17, fontWeight:700, color:"#0f172a" }}>
                 Consultancy Project Developer
               </h3>
-              <p style={{ color:"#e74c3c", fontSize:15, fontFamily:"'Times New Roman', serif", marginTop:6, fontWeight:500 }}>Freelance / Client Project</p>
+              <p style={{ color:"#2563eb", fontSize:14, fontFamily:"'Inter', sans-serif", marginTop:4, fontWeight:500 }}>Freelance / Client Project</p>
             </div>
             <span style={{
-              fontFamily:"'Times New Roman', serif", fontSize:12, color:"#e74c3c",
-              background:"rgba(231,76,60,0.15)", border:"1.5px solid rgba(231,76,60,0.4)",
-              borderRadius:6, padding:"6px 14px", fontWeight:600,
+              fontFamily:"'Inter', sans-serif", fontSize:12, color:"#0f172a",
+              background:"#f1f5f9", border:"1px solid #e2e8f0",
+              borderRadius:6, padding:"4px 12px", fontWeight:600,
             }}>2025</span>
           </div>
 
-          <div style={{ display:"flex", flexDirection:"column", gap:14 }}>
+          <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
             {[
               "Developed a professional portfolio website for a client",
               "Built a fully responsive UI with clean, modern design principles",
