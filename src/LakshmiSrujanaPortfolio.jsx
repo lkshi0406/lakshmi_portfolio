@@ -11,7 +11,7 @@ const PROJECTS = [
     tech: ["HTML","CSS","Git"],
     color: "#8b5cf6",
     icon: "💼",
-    github_url: "https://github.com/lkshi0406",
+    github_url: "https://github.com/lkshi0406?tab=repositories",
     demo_url: "https://dilip-kumar-salvadi.vercel.app/",
   },
    {
@@ -20,7 +20,7 @@ const PROJECTS = [
     tech: ["Python", "PostgreSQL", "REST API", "Render"],
     color: "#3b82f6",
     icon: "🔗",
-    github_url: "https://github.com/lkshi0406",
+    github_url: "https://github.com/lkshi0406?tab=repositories",
     demo_url: "https://url-shortener-frontend-three-phi.vercel.app/",
   },
   {
@@ -29,7 +29,7 @@ const PROJECTS = [
     tech: ["Python","Machine Learning","REST API"],
     color: "#b91010",
     icon: "🍽️",
-    github_url: "https://github.com/lkshi0406",
+    github_url: "https://github.com/lkshi0406?tab=repositories",
     demo_url: "#",
   },
  
