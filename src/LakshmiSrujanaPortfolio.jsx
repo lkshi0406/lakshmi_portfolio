@@ -260,7 +260,7 @@ function Hero() {
   return (
     <section id="home" style={{
       minHeight:"100vh", display:"flex", alignItems:"center",
-      background:"#030712", position:"relative", overflow:"hidden", paddingTop:80,
+      background:"#ffffff", position:"relative", overflow:"hidden", paddingTop:80,
     }}>
       {/* Grid bg */}
       <div style={{
@@ -381,7 +381,7 @@ function Hero() {
         @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
         * { box-sizing:border-box; margin:0; padding:0; }
         html { scroll-behavior:smooth; }
-        body { background:#030712; color:#e2e8f0; overflow-x:hidden; }
+        body { background:#ffffff; color:#1f2937; overflow-x:hidden; }
         @media(max-width:768px){
           .hero-grid{grid-template-columns:1fr!important; gap:40px!important;}
           .desk-nav{display:none!important;}
@@ -713,7 +713,7 @@ function Experience() {
           <div style={{
             position:"absolute", left:-41, top:28, width:18, height:18, borderRadius:"50%",
             background:"linear-gradient(135deg,#06b6d4,#8b5cf6)",
-            border:"3px solid #030712",
+            border:"3px solid #ffffff",
           }} />
 
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:8, marginBottom:16 }}>
@@ -773,8 +773,7 @@ function Contact() {
 
           {[
             { icon:"📧", label:"Email", value:"srujanalakshmi08@gmail.com", href:"mailto:srujanalakshmi08@gmail.com" },
-            { icon:"📱", label:"Phone", value:"+91-9880499896", href:"tel:+919880499896" },
-            { icon:"📍", label:"Location", value:"Bengaluru, India", href:"#" },
+            { icon:"", label:"Location", value:"Bengaluru, India", href:"#" },
           ].map(c => (
             <a key={c.label} href={c.href} style={{
               display:"flex", gap:16, alignItems:"center",
@@ -869,7 +868,7 @@ function Contact() {
 function Footer() {
   return (
     <footer style={{
-      background:"#030712", borderTop:"1px solid rgba(255,255,255,0.06)",
+      background:"#f3f4f6", borderTop:"1px solid rgba(0,0,0,0.1)",
       padding:"32px 2rem", textAlign:"center",
     }}>
       <p style={{ fontFamily:"'Space Mono',monospace", fontSize:12, color:"#475569" }}>
@@ -886,7 +885,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div style={{ background:"#030712", minHeight:"100vh" }}>
+    <div style={{ background:"#ffffff", minHeight:"100vh" }}>
       <ScrollBar />
       <Navbar />
       <Hero />
