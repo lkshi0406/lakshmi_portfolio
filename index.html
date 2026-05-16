@@ -47,8 +47,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--cream);
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(10px);
     border-bottom: 1.5px solid rgba(26,18,9,0.08);
+    transition: all 0.3s ease;
   }
   .nav-logo {
     font-family: 'DM Mono', monospace;
@@ -68,9 +70,13 @@
     font-weight: 500;
     letter-spacing: 0.04em;
     opacity: 0.6;
-    transition: opacity 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
   }
-  .nav-links a:hover { opacity: 1; }
+  .nav-links a:hover { 
+    opacity: 1; 
+    transform: translateY(-2px);
+  }
   .nav-cta {
     background: var(--ink);
     color: var(--cream) !important;
@@ -100,6 +106,13 @@
   .hero .fl-2 { animation: floatB 9s ease-in-out infinite; }
   .hero .fl-3 { animation: floatA 6s 1s ease-in-out infinite; }
   .hero .fl-4 { animation: floatB 8s 2s ease-in-out infinite; }
+  .hero .fl-1:hover, .hero .fl-2:hover, .hero .fl-3:hover, .hero .fl-4:hover {
+    animation-play-state: paused;
+  }
+  .hero:has(.fl-1:hover) { background: rgba(42, 168, 155, 0.08) !important; transition: background 0.4s ease; }
+  .hero:has(.fl-2:hover) { background: rgba(232, 40, 30, 0.08) !important; transition: background 0.4s ease; }
+  .hero:has(.fl-3:hover) { background: rgba(240, 126, 194, 0.08) !important; transition: background 0.4s ease; }
+  .hero:has(.fl-4:hover) { background: rgba(99, 102, 241, 0.08) !important; transition: background 0.4s ease; }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 12px;
@@ -138,11 +151,15 @@
     font-weight: 500;
     text-decoration: none;
     letter-spacing: 0.02em;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    border: 2px solid var(--ink);
   }
   .hero-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(26,18,9,0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,18,9,0.25);
+    background: var(--cream);
+    color: var(--ink);
   }
 
   /* Hero flowers */
@@ -213,6 +230,7 @@
     line-height: 1.05;
     letter-spacing: -0.01em;
     margin-bottom: 12px;
+    animation: fadeUp 0.8s ease both;
   }
   .section-sub {
     font-size: 14px;
@@ -238,13 +256,13 @@
     grid-template-columns: 1fr auto;
     gap: 24px;
     align-items: start;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     overflow: hidden;
   }
   .project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(26,18,9,0.10);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 56px rgba(26,18,9,0.2);
   }
   .project-card::before {
     content: '';
@@ -333,6 +351,12 @@
     background: var(--cream);
     border-radius: 16px;
     padding: 28px 24px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+  }
+  .skill-group:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(26,18,9,0.12);
   }
   .skill-group-title {
     font-family: 'DM Mono', monospace;
@@ -382,10 +406,13 @@
     gap: 32px;
     padding: 36px 40px;
     border-bottom: 1.5px solid rgba(26,18,9,0.08);
-    transition: background 0.2s;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .exp-item:last-child { border-bottom: none; }
-  .exp-item:hover { background: var(--cream-dark); }
+  .exp-item:hover { 
+    background: var(--cream-dark);
+    transform: translateX(4px);
+  }
   .exp-date {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -502,6 +529,12 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+  }
+  .ach-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(26,18,9,0.15);
   }
   .ach-icon {
     width: 40px; height: 40px;
@@ -565,9 +598,14 @@
     font-size: 13px;
     font-weight: 5;
     border: 1.5px solid rgba(245,240,232,0.25);
-    transition: background 0.2s;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .contact-link:hover { background: rgba(245,240,232,0.25); }
+  .contact-link:hover { 
+    background: rgba(245,240,232,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(26,18,9,0.15);
+    border-color: rgba(245,240,232,0.5);
+  }
 
   /* ── FLOWER FOOTER ── */
   .flower-footer {
@@ -609,10 +647,52 @@
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-12px) rotate(-6deg); }
   }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+  @keyframes shimmer {
+    0% { box-shadow: inset 0 0 10px rgba(245,240,232,0); }
+    50% { box-shadow: inset 0 0 20px rgba(245,240,232,0.3); }
+    100% { box-shadow: inset 0 0 10px rgba(245,240,232,0); }
+  }
 
   .hero-title { animation: fadeUp 0.8s ease both; }
   .hero-sub { animation: fadeUp 0.8s 0.15s ease both; }
   .hero-btn { animation: fadeUp 0.8s 0.25s ease both; }
+  .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(26,18,9,0.2); }
+
+  .project-card { animation: fadeUp 0.8s ease both; }
+  .project-card:hover { transform: translateY(-6px); animation-play-state: paused; box-shadow: 0 20px 48px rgba(26,18,9,0.15); }
+
+  .stat-item { animation: slideInLeft 0.8s ease both; }
+  .stat-item:nth-child(2) { animation-delay: 0.1s; }
+  .stat-item:nth-child(3) { animation-delay: 0.2s; }
+  .stat-item:nth-child(4) { animation-delay: 0.3s; }
+
+  .skill-group { animation: fadeUp 0.8s ease both; }
+  .skill-group:hover { box-shadow: 0 8px 24px rgba(26,18,9,0.08); transform: translateY(-4px); }
+
+  .ach-card { animation: fadeUp 0.8s ease both; }
+  .ach-card:hover { box-shadow: 0 8px 20px rgba(26,18,9,0.1); transform: translateY(-3px); }
+
+  .exp-item { animation: slideInRight 0.8s ease both; }
+  .exp-item:hover { background: var(--cream-dark); }
+
+  .contact-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .contact-link:hover { 
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(255,255,255,0.2);
+    background: rgba(245,240,232,0.3);
+  }
   .fl-1 { animation: floatA 7s ease-in-out infinite; }
   .fl-2 { animation: floatB 9s ease-in-out infinite; }
   .fl-3 { animation: floatA 6s 1s ease-in-out infinite; }
@@ -699,7 +779,7 @@
   </svg>
 
   <p class="hero-eyebrow">Computer Science Engineer · GITAM University</p>
-  <h1 class="hero-title">Backend builder<br>you can <em>count on</em></h1>
+  <h1 class="hero-title">Web developer<br>you can <em>count on</em></h1>
   <p class="hero-sub">I turn complex problems into clean systems — REST APIs, PostgreSQL, ML pipelines, and community leadership that actually ships.</p>
   <a href="#contact" class="hero-btn">Let's connect →</a>
 </section>
@@ -747,7 +827,17 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <div style="font-size: 64px; margin-bottom: 12px;">💼</div>
+        <svg style="width: 80px; height: 80px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(50,50)">
+            <circle cx="0" cy="-30" r="18" fill="#F06529"/>
+            <circle cx="26" cy="-15" r="18" fill="#F06529"/>
+            <circle cx="26" cy="15" r="18" fill="#F06529"/>
+            <circle cx="0" cy="30" r="18" fill="#F06529"/>
+            <circle cx="-26" cy="15" r="18" fill="#F06529"/>
+            <circle cx="-26" cy="-15" r="18" fill="#F06529"/>
+            <circle cx="0" cy="0" r="20" fill="#F5C842"/>
+          </g>
+        </svg>
         <p class="project-year">2024</p>
       </div>
     </div>
@@ -767,7 +857,17 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <div style="font-size: 64px; margin-bottom: 12px;">🔗</div>
+        <svg style="width: 80px; height: 80px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(50,50)">
+            <circle cx="0" cy="-30" r="18" fill="#2AA89B"/>
+            <circle cx="26" cy="-15" r="18" fill="#2AA89B"/>
+            <circle cx="26" cy="15" r="18" fill="#2AA89B"/>
+            <circle cx="0" cy="30" r="18" fill="#2AA89B"/>
+            <circle cx="-26" cy="15" r="18" fill="#2AA89B"/>
+            <circle cx="-26" cy="-15" r="18" fill="#2AA89B"/>
+            <circle cx="0" cy="0" r="20" fill="#F5C842"/>
+          </g>
+        </svg>
         <p class="project-year">2024</p>
       </div>
     </div>
@@ -777,8 +877,8 @@
     <div class="project-card">
       <div>
         <div class="project-tag tag-blue">ML + Backend</div>
-        <h3 class="project-name">Food Recommendation & Recipe Suggestion System</h3>
-        <p class="project-desc">Building an ML-powered recipe engine that infers dishes from partial ingredient lists. Experimenting with TF-IDF similarity and classification models, with a REST API backend for integration.</p>
+        <h3 class="project-name">Food Recommendation & Recipe Suggester</h3>
+        <p class="project-desc">An ML-powered system that generates recipe suggestions from partial ingredient inputs. Experimenting with dissimilarization and similarity-based ML approaches. Building a backend API layer to expose model outputs — targeting real-world usability not just notebook accuracy.</p>
         <div class="project-stack">
           <span class="stack-pill">Python</span>
           <span class="stack-pill">Machine Learning</span>
@@ -786,7 +886,17 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <div style="font-size: 64px; margin-bottom: 12px;">🍽️</div>
+        <svg style="width: 80px; height: 80px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(50,50)">
+            <circle cx="0" cy="-30" r="18" fill="#2AA89B"/>
+            <circle cx="26" cy="-15" r="18" fill="#2AA89B"/>
+            <circle cx="26" cy="15" r="18" fill="#2AA89B"/>
+            <circle cx="0" cy="30" r="18" fill="#2AA89B"/>
+            <circle cx="-26" cy="15" r="18" fill="#2AA89B"/>
+            <circle cx="-26" cy="-15" r="18" fill="#2AA89B"/>
+            <circle cx="0" cy="0" r="20" fill="#F07EC2"/>
+          </g>
+        </svg>
         <p class="project-year">2025</p>
       </div>
     </div>
@@ -950,8 +1060,69 @@
 
 <!-- FLOWER FOOTER -->
 <div class="flower-footer">
+  <div class="flower-row" id="flowerRow"></div>
   <p class="footer-note">Lakshmi Srujana · CS Engineer · GITAM University 2027</p>
 </div>
 
-</body>
-</html>
+<script>
+  // Generate footer flower row
+  const colors = [
+    { petal: '#F07EC2', center: '#F5C842' },
+    { petal: '#F06529', center: '#1A1209' },
+    { petal: '#6366f1', center: '#F5C842' },
+    { petal: '#2AA89B', center: '#F5C842' },
+    { petal: '#F5C842', center: '#1A1209' },
+    { petal: '#B48EE0', center: '#F5C842' },
+  ];
+  
+  const row = document.getElementById('flowerRow');
+  for(let i = 0; i < 22; i++){
+    const color = colors[i % colors.length];
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('style', 'width: 60px; height: 60px; flex-shrink: 0;');
+    svg.innerHTML = `
+      <g transform="translate(50,50)">
+        <circle cx="0" cy="-30" r="18" fill="${color.petal}"/>
+        <circle cx="26" cy="-15" r="18" fill="${color.petal}"/>
+        <circle cx="26" cy="15" r="18" fill="${color.petal}"/>
+        <circle cx="0" cy="30" r="18" fill="${color.petal}"/>
+        <circle cx="-26" cy="15" r="18" fill="${color.petal}"/>
+        <circle cx="-26" cy="-15" r="18" fill="${color.petal}"/>
+        <circle cx="0" cy="0" r="20" fill="${color.center}"/>
+      </g>
+    `;
+    row.appendChild(svg);
+  }
+
+  // Smooth scroll reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .exp-item, .ach-card, .skill-group, .highlight-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.8s cubic-bezier(.16,1,.3,1)';
+    observer.observe(el);
+  });
+
+  // Flower hover background effect
+  document.querySelectorAll('.hero .flower').forEach(flower => {
+    flower.addEventListener('mouseenter', function() {
+      const rect = document.querySelector('.hero');
+      if(this.classList.contains('fl-1')) rect.style.backgroundColor = 'rgba(42, 168, 155, 0.12)';
+      if(this.classList.contains('fl-2')) rect.style.backgroundColor = 'rgba(232, 40, 30, 0.12)';
+      if(this.classList.contains('fl-3')) rect.style.backgroundColor = 'rgba(240, 126, 194, 0.12)';
+      if(this.classList.contains('fl-4')) rect.style.backgroundColor = 'rgba(99, 102, 241, 0.12)';
+    });
+    flower.addEventListener('mouseleave', function() {
+      document.querySelector('.hero').style.backgroundColor = '';
+    });
+  });
+</script>
