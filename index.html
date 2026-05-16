@@ -91,6 +91,15 @@
     padding: 80px 24px 60px;
     overflow: hidden;
   }
+  .hero .flower {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero .fl-1 { animation: floatA 7s ease-in-out infinite; }
+  .hero .fl-2 { animation: floatB 9s ease-in-out infinite; }
+  .hero .fl-3 { animation: floatA 6s 1s ease-in-out infinite; }
+  .hero .fl-4 { animation: floatB 8s 2s ease-in-out infinite; }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 12px;
@@ -637,6 +646,58 @@
 
 <!-- HERO -->
 <section class="hero">
+  <!-- Teal Flower (top-left) -->
+  <svg class="flower fl-1" style="top: 40px; left: -40px; width: 260px;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(100,100)">
+      <circle cx="0" cy="-60" r="35" fill="#2AA89B"/>
+      <circle cx="52" cy="-30" r="35" fill="#2AA89B"/>
+      <circle cx="52" cy="30" r="35" fill="#2AA89B"/>
+      <circle cx="0" cy="60" r="35" fill="#2AA89B"/>
+      <circle cx="-52" cy="30" r="35" fill="#2AA89B"/>
+      <circle cx="-52" cy="-30" r="35" fill="#2AA89B"/>
+      <circle cx="0" cy="0" r="40" fill="#F5C842"/>
+    </g>
+  </svg>
+
+  <!-- Red Flower (top-right) -->
+  <svg class="flower fl-2" style="top: 20px; right: -30px; width: 220px;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(100,100)">
+      <circle cx="0" cy="-60" r="35" fill="#E8281E"/>
+      <circle cx="52" cy="-30" r="35" fill="#E8281E"/>
+      <circle cx="52" cy="30" r="35" fill="#E8281E"/>
+      <circle cx="0" cy="60" r="35" fill="#E8281E"/>
+      <circle cx="-52" cy="30" r="35" fill="#E8281E"/>
+      <circle cx="-52" cy="-30" r="35" fill="#E8281E"/>
+      <circle cx="0" cy="0" r="40" fill="#1A1209"/>
+    </g>
+  </svg>
+
+  <!-- Pink Flower (bottom-left) -->
+  <svg class="flower fl-3" style="bottom: 40px; left: 60px; width: 100px; opacity: 0.5;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(50,50)">
+      <circle cx="0" cy="-30" r="18" fill="#F07EC2"/>
+      <circle cx="26" cy="-15" r="18" fill="#F07EC2"/>
+      <circle cx="26" cy="15" r="18" fill="#F07EC2"/>
+      <circle cx="0" cy="30" r="18" fill="#F07EC2"/>
+      <circle cx="-26" cy="15" r="18" fill="#F07EC2"/>
+      <circle cx="-26" cy="-15" r="18" fill="#F07EC2"/>
+      <circle cx="0" cy="0" r="20" fill="#F5C842"/>
+    </g>
+  </svg>
+
+  <!-- Blue Flower (bottom-right) -->
+  <svg class="flower fl-4" style="bottom: 60px; right: 80px; width: 80px; opacity: 0.5;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(50,50)">
+      <circle cx="0" cy="-30" r="18" fill="#6366f1"/>
+      <circle cx="26" cy="-15" r="18" fill="#6366f1"/>
+      <circle cx="26" cy="15" r="18" fill="#6366f1"/>
+      <circle cx="0" cy="30" r="18" fill="#6366f1"/>
+      <circle cx="-26" cy="15" r="18" fill="#6366f1"/>
+      <circle cx="-26" cy="-15" r="18" fill="#6366f1"/>
+      <circle cx="0" cy="0" r="20" fill="#F5C842"/>
+    </g>
+  </svg>
+
   <p class="hero-eyebrow">Computer Science Engineer · GITAM University</p>
   <h1 class="hero-title">Backend builder<br>you can <em>count on</em></h1>
   <p class="hero-sub">I turn complex problems into clean systems — REST APIs, PostgreSQL, ML pipelines, and community leadership that actually ships.</p>
