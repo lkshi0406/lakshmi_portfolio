@@ -1,10 +1,2 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './LakshmiSrujanaPortfolio.jsx'
-import './index.css'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// Using static HTML from public/index.html
+// React entry point is not needed for this static portfolio
