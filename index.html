@@ -29,6 +29,109 @@
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(26, 18, 9, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring.active {
+    border-color: var(--ink);
+    width: 48px;
+    height: 48px;
+  }
+
+  .page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+  }
+
+  .page-loader.loaded {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loader-flowers {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .loader-flower {
+    width: 50px;
+    height: 50px;
+    animation: spinFlower 2s infinite ease-in-out;
+  }
+
+  .loader-flower:nth-child(2) { animation-delay: 0.2s; }
+  .loader-flower:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes spinFlower {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(0.8); }
+  }
+
+  .loader-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    animation: fadeInOut 2s infinite;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .loader-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26, 18, 9, 0.1);
+    margin-top: 20px;
+    overflow: hidden;
+  }
+
+  .loader-progress {
+    height: 100%;
+    background: var(--ink);
+    animation: progress 2s ease-in-out infinite;
+  }
+
+  @keyframes progress {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
   }
 
   /* ── FLOWER SVG ── */
@@ -47,8 +150,9 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--cream);
-    border-bottom: 1.5px solid rgba(26,18,9,0.08);
+    background: rgba(245, 240, 232, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1.5px solid rgba(26, 18, 9, 0.08);
   }
   .nav-logo {
     font-family: 'DM Mono', monospace;
@@ -81,6 +185,22 @@
     opacity: 1 !important;
     padding: 8px 20px;
     border-radius: 100px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26, 18, 9, 0.2);
+  }
+
+  .nav-flower-burst-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    pointer-events: none;
+    z-index: 99;
   }
 
   /* ── HERO ── */
@@ -268,9 +388,20 @@
     height: 4px;
     border-radius: 20px 20px 0 0;
   }
+
   .card-url .project-card::before { background: var(--blue); }
   .card-food .project-card::before { background: var(--teal); }
   .card-web .project-card::before { background: var(--orange); }
+
+  /* Project glow effect tracking cursor */
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 20px;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 0, 0, 0.03), transparent 50%);
+    pointer-events: none;
+  }
 
   .project-tag {
     display: inline-block;
@@ -348,6 +479,12 @@
     background: var(--cream);
     border-radius: 16px;
     padding: 28px 24px;
+    transition: all 0.3s ease;
+  }
+
+  .skill-group:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(26, 18, 9, 0.12);
   }
   .skill-group-title {
     font-family: 'DM Mono', monospace;
@@ -602,6 +739,13 @@
     width: 60px;
     height: 60px;
     flex-shrink: 0;
+    animation: rotateFlower 3s linear infinite;
+  }
+  .flower-row svg:nth-child(odd) { animation-direction: reverse; }
+
+  @keyframes rotateFlower {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   .footer-note {
     font-size: 11px;
@@ -755,6 +899,97 @@
   .fl-3 { animation: floatA 6s 1s ease-in-out infinite; }
   .fl-4 { animation: floatB 8s 2s ease-in-out infinite; }
 
+  /* ── SCROLL REVEAL ── */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── FLOWER BLOOM PARTICLES ── */
+  .fl-bloom {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: bloomOut 0.9s ease-out forwards;
+  }
+
+  .fl-bloom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(240, 126, 194, 0.8), rgba(240, 126, 194, 0));
+    border-radius: 50%;
+  }
+
+  @keyframes bloomOut {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0.2);
+      opacity: 0;
+    }
+  }
+
+  /* ── NAVBAR FLOWER SPARKS ── */
+  .nav-flower-spark {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, var(--teal), rgba(42, 168, 155, 0));
+    border-radius: 50%;
+    animation: sparkFly 0.6s ease-out forwards;
+  }
+
+  @keyframes sparkFly {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0);
+      opacity: 0;
+    }
+  }
+
+  /* ── BUTTON FLOWER BURST ── */
+  .button-flower-burst {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, var(--pink), rgba(240, 126, 194, 0));
+    border-radius: 50%;
+    animation: burstOut 0.8s ease-out forwards;
+  }
+
+  @keyframes burstOut {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0.2);
+      opacity: 0;
+    }
+  }
+
+  /* ── MOBILE CURSOR HIDE ── */
+  @media (hover: none) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
   /* ── MOBILE ── */
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
@@ -770,7 +1005,51 @@
 </head>
 <body>
 
-<!-- NAV -->
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-flowers">
+    <svg class="loader-flower" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <ellipse cx="0" cy="-25" rx="12" ry="22" fill="#F07EC2"/>
+        <ellipse cx="22" cy="-12" rx="12" ry="22" fill="#F07EC2" transform="rotate(60)"/>
+        <ellipse cx="22" cy="12" rx="12" ry="22" fill="#F07EC2" transform="rotate(120)"/>
+        <ellipse cx="0" cy="25" rx="12" ry="22" fill="#F07EC2" transform="rotate(180)"/>
+        <ellipse cx="-22" cy="12" rx="12" ry="22" fill="#F07EC2" transform="rotate(240)"/>
+        <ellipse cx="-22" cy="-12" rx="12" ry="22" fill="#F07EC2" transform="rotate(300)"/>
+        <circle cx="0" cy="0" r="16" fill="#F5C842"/>
+      </g>
+    </svg>
+    <svg class="loader-flower" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <ellipse cx="0" cy="-25" rx="12" ry="22" fill="#2AA89B"/>
+        <ellipse cx="22" cy="-12" rx="12" ry="22" fill="#2AA89B" transform="rotate(60)"/>
+        <ellipse cx="22" cy="12" rx="12" ry="22" fill="#2AA89B" transform="rotate(120)"/>
+        <ellipse cx="0" cy="25" rx="12" ry="22" fill="#2AA89B" transform="rotate(180)"/>
+        <ellipse cx="-22" cy="12" rx="12" ry="22" fill="#2AA89B" transform="rotate(240)"/>
+        <ellipse cx="-22" cy="-12" rx="12" ry="22" fill="#2AA89B" transform="rotate(300)"/>
+        <circle cx="0" cy="0" r="16" fill="#F5C842"/>
+      </g>
+    </svg>
+    <svg class="loader-flower" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <ellipse cx="0" cy="-25" rx="12" ry="22" fill="#F06529"/>
+        <ellipse cx="22" cy="-12" rx="12" ry="22" fill="#F06529" transform="rotate(60)"/>
+        <ellipse cx="22" cy="12" rx="12" ry="22" fill="#F06529" transform="rotate(120)"/>
+        <ellipse cx="0" cy="25" rx="12" ry="22" fill="#F06529" transform="rotate(180)"/>
+        <ellipse cx="-22" cy="12" rx="12" ry="22" fill="#F06529" transform="rotate(240)"/>
+        <ellipse cx="-22" cy="-12" rx="12" ry="22" fill="#F06529" transform="rotate(300)"/>
+        <circle cx="0" cy="0" r="16" fill="#1A1209"/>
+      </g>
+    </svg>
+  </div>
+  <div class="loader-text">Loading</div>
+  <div class="loader-bar">
+    <div class="loader-progress"></div>
+  </div>
+</div>
+
+<!-- NAVBAR FLOWER BURST LAYER -->
+<div class="nav-flower-burst-layer" id="navFlowerLayer"></div>
 <nav>
   <span class="nav-logo">lkshi0406</span>
   <ul class="nav-links">
@@ -872,7 +1151,7 @@
   </div>
 
   <div class="projects card-url">
-    <div class="project-card">
+    <div class="project-card scroll-reveal">
       <div>
         <div class="project-tag tag-blue">Full Stack</div>
         <h3 class="project-name">Client Portfolio Website</h3>
@@ -901,7 +1180,7 @@
   </div>
 
   <div class="projects card-url">
-    <div class="project-card">
+    <div class="project-card scroll-reveal">
       <div>
         <div class="project-tag tag-blue">Backend</div>
         <h3 class="project-name">URL Shortener - Shortie</h3>
@@ -931,7 +1210,7 @@
   </div>
 
   <div class="projects card-url">
-    <div class="project-card">
+    <div class="project-card scroll-reveal">
       <div>
         <div class="project-tag tag-blue">ML + Backend</div>
         <h3 class="project-name">Food Recommendation & Recipe Suggester</h3>
@@ -1109,9 +1388,8 @@
   <h2 class="contact-title">Let's talk.</h2>
   <div class="contact-links">
     <a href="mailto:srujanalakshmi08@gmail.com" class="contact-link">📧 Email</a>
-    <a href="https://linkedin.com/in/lakshmi-srujana-vls/" class="contact-link">💼 LinkedIn</a>
-    <a href="https://github.com/lkshi0406" class="contact-link">🐙 GitHub</a>
-    <a href="https://leetcode.com/u/GB2023005037/" class="contact-link">💻 LeetCode</a>
+    <a href="https://linkedin.com/in/lakshmi-srujana-vls/" class="contact-link">LinkedIn</a>
+    <a href="https://github.com/lkshi0406" class="contact-link">GitHub</a>
   </div>
 </section>
 
@@ -1121,8 +1399,60 @@
   <p class="footer-note">Lakshmi Srujana · CS Engineer · GITAM University 2027</p>
 </div>
 
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <script>
-  // Generate footer flower row
+  // ── CUSTOM CURSOR ──
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+  });
+
+  setInterval(() => {
+    ringX += (mouseX - ringX) * 0.2;
+    ringY += (mouseY - ringY) * 0.2;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+  }, 15);
+
+  document.addEventListener('mouseenter', () => {
+    cursorDot.style.opacity = '1';
+    cursorRing.style.opacity = '1';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursorDot.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+  });
+
+  // Hover effects on interactive elements
+  document.querySelectorAll('a, button, .contact-link').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorRing.classList.add('active');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorRing.classList.remove('active');
+    });
+  });
+
+  // ── PAGE LOADER ──
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('pageLoader');
+    setTimeout(() => {
+      loader.classList.add('loaded');
+    }, 1500);
+  });
+
+  // ── GENERATE FOOTER FLOWERS ──
   const colors = [
     { petal: '#F07EC2', center: '#F5C842' },
     { petal: '#F06529', center: '#1A1209' },
@@ -1131,7 +1461,7 @@
     { petal: '#F5C842', center: '#1A1209' },
     { petal: '#B48EE0', center: '#F5C842' },
   ];
-  
+
   const row = document.getElementById('flowerRow');
   for(let i = 0; i < 22; i++){
     const color = colors[i % colors.length];
@@ -1140,92 +1470,90 @@
     svg.setAttribute('style', 'width: 60px; height: 60px; flex-shrink: 0;');
     svg.innerHTML = `
       <g transform="translate(50,50)">
-        <circle cx="0" cy="-30" r="18" fill="${color.petal}"/>
-        <circle cx="26" cy="-15" r="18" fill="${color.petal}"/>
-        <circle cx="26" cy="15" r="18" fill="${color.petal}"/>
-        <circle cx="0" cy="30" r="18" fill="${color.petal}"/>
-        <circle cx="-26" cy="15" r="18" fill="${color.petal}"/>
-        <circle cx="-26" cy="-15" r="18" fill="${color.petal}"/>
+        <ellipse cx="0" cy="-30" rx="12" ry="20" fill="${color.petal}"/>
+        <ellipse cx="26" cy="-15" rx="12" ry="20" fill="${color.petal}" transform="rotate(60)"/>
+        <ellipse cx="26" cy="15" rx="12" ry="20" fill="${color.petal}" transform="rotate(120)"/>
+        <ellipse cx="0" cy="30" rx="12" ry="20" fill="${color.petal}" transform="rotate(180)"/>
+        <ellipse cx="-26" cy="15" rx="12" ry="20" fill="${color.petal}" transform="rotate(240)"/>
+        <ellipse cx="-26" cy="-15" rx="12" ry="20" fill="${color.petal}" transform="rotate(300)"/>
         <circle cx="0" cy="0" r="20" fill="${color.center}"/>
       </g>
     `;
     row.appendChild(svg);
   }
 
-  // Smooth scroll reveal animations
-  const observer = new IntersectionObserver((entries) => {
+  // ── SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('active');
       }
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.project-card, .exp-item, .ach-card, .skill-group, .highlight-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.8s cubic-bezier(.16,1,.3,1)';
-    observer.observe(el);
+  document.querySelectorAll('.scroll-reveal').forEach(el => {
+    revealObserver.observe(el);
   });
 
-  // ── ELEGANT FLOWER BLOOM EFFECTS ──
-  
-  // Project card flower blooms on hover
+  // ── PROJECT CARD GLOW & BLOOMS ──
   document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+
     card.addEventListener('mouseenter', function() {
       const rect = this.getBoundingClientRect();
-      const cardRect = card.parentElement.getBoundingClientRect();
-      
-      // Create 6-8 flowers blooming from edges
       for(let i = 0; i < 8; i++) {
         setTimeout(() => {
-          createProjectFlowerBloom(card, rect, cardRect);
+          createProjectFlowerBloom(this, rect);
         }, i * 50);
       }
     });
   });
-  
-  function createProjectFlowerBloom(card, rect, parentRect) {
+
+  function createProjectFlowerBloom(card, rect) {
     const flower = document.createElement('div');
     flower.className = 'fl-bloom';
-    
-    // Random edge position
-    const edge = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+
+    const edge = Math.floor(Math.random() * 4);
     let startX, startY, outX, outY;
-    
-    if(edge === 0) { // top
+
+    if(edge === 0) {
       startX = Math.random() * rect.width;
       startY = -10;
       outX = (Math.random() - 0.5) * 150;
       outY = -(80 + Math.random() * 80);
-    } else if(edge === 1) { // right
+    } else if(edge === 1) {
       startX = rect.width + 10;
       startY = Math.random() * rect.height;
       outX = 80 + Math.random() * 80;
       outY = (Math.random() - 0.5) * 150;
-    } else if(edge === 2) { // bottom
+    } else if(edge === 2) {
       startX = Math.random() * rect.width;
       startY = rect.height + 10;
       outX = (Math.random() - 0.5) * 150;
       outY = 80 + Math.random() * 80;
-    } else { // left
+    } else {
       startX = -10;
       startY = Math.random() * rect.height;
       outX = -(80 + Math.random() * 80);
       outY = (Math.random() - 0.5) * 150;
     }
-    
+
     flower.style.left = startX + 'px';
     flower.style.top = startY + 'px';
     flower.style.setProperty('--tx', outX + 'px');
     flower.style.setProperty('--ty', outY + 'px');
-    
+
     card.appendChild(flower);
     setTimeout(() => flower.remove(), 900);
   }
-  
-  // Navbar link hover flower sparks
+
+  // ── NAVBAR LINK HOVER ──
   document.querySelectorAll('.nav-links a, .nav-cta').forEach(link => {
     link.addEventListener('mouseenter', function() {
       const rect = this.getBoundingClientRect();
@@ -1236,27 +1564,26 @@
       }
     });
   });
-  
+
   function createNavFlowerSpark(rect) {
     const spark = document.createElement('div');
     spark.className = 'nav-flower-spark';
-    
-    // Random direction
+
     const angle = Math.random() * Math.PI * 2;
     const distance = 40 + Math.random() * 40;
     const tx = Math.cos(angle) * distance;
     const ty = Math.sin(angle) * distance - 30;
-    
+
     spark.style.left = (rect.left + rect.width / 2) + 'px';
     spark.style.top = (rect.top + rect.height / 2) + 'px';
     spark.style.setProperty('--tx', tx + 'px');
     spark.style.setProperty('--ty', ty + 'px');
-    
+
     document.body.appendChild(spark);
     setTimeout(() => spark.remove(), 600);
   }
-  
-  // Contact button flower burst effect
+
+  // ── CONTACT LINK FLOWER BURST ──
   document.querySelectorAll('.contact-link').forEach(btn => {
     btn.addEventListener('click', function(e) {
       const rect = this.getBoundingClientRect();
@@ -1267,27 +1594,26 @@
       }
     });
   });
-  
+
   function createButtonFlowerBurst(rect) {
     const burst = document.createElement('div');
     burst.className = 'button-flower-burst';
-    
-    // Radial burst direction
+
     const angle = Math.random() * Math.PI * 2;
     const distance = 60 + Math.random() * 70;
     const tx = Math.cos(angle) * distance;
     const ty = Math.sin(angle) * distance;
-    
+
     burst.style.left = (rect.left + rect.width / 2) + 'px';
     burst.style.top = (rect.top + rect.height / 2) + 'px';
     burst.style.setProperty('--tx', tx + 'px');
     burst.style.setProperty('--ty', ty + 'px');
-    
+
     document.body.appendChild(burst);
     setTimeout(() => burst.remove(), 800);
   }
 
-  // Flower hover background effect
+  // ── FLOWER HOVER BACKGROUND ──
   document.querySelectorAll('.hero .flower').forEach(flower => {
     flower.addEventListener('mouseenter', function() {
       const rect = document.querySelector('.hero');
